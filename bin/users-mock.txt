@@ -1,0 +1,20 @@
+{
+    "_id" : ObjectId("5d9c12a2b2b61d235117112a"),
+    "username" : "admin",
+     "id" : "4405-01570521255684-13275",
+    "name" : "测试",
+    "mobile" : "18828768888",
+    "sex" : "男",
+    "city" : "陕西省 汉中市",
+    "avatar" : "https://s3.amazonaws.com/uifaces/faces/twitter/dzantievm/128.jpg",
+    "idcard" : NumberLong(720481954919706800),
+    "birthday" : "1990-05-09",
+    "interest" : [ 
+        "听歌", 
+        "喝咖啡"
+    ],
+    "desc" : "Knhlqx mdhnllfgi vjenqnue ulu ydjkwqbz iykkkj shnguvn ndverllgt dksfmpawjy vyiwcioko ybjfdown cneyhftu ptpigov kitoqd vst. Jbfwuy sxifg nboyrbqyy xdknwost cqgkxgxh jmqoia mtnbvdhe kvomk bshiussv dctlhm wfsjd pypbxi onknykfv uajphui edlzdebmt.",
+    "group" : "同事",
+    "email" : "r.cpjtcjg@gvbv.ke",
+    "password" : "c9c51c5dc6f69a34f4e4f915225e1253010056ea3a0ba47963f4d314233a98ed"
+}

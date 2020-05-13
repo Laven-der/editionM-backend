@@ -1,0 +1,60 @@
+{
+  "name": "memory_backend",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "start": "npx gulp watch",
+    "doc": "rm -rf ./static/docs/* && npx gulp doc",
+    "mock": "node ./bin/creat.js &&node ./bin/creatFlower.js &&  mongoimport -d memory -c users --drop ./bin/user.txt && mongoimport -d memory -c hoys --drop ./bin/flowerMock.txt"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "lavender",
+  "license": "ISC",
+  "dependencies": {
+    "ali-oss": "^6.0.1",
+    "archy": "^1.0.0",
+    "array-differ": "^3.0.0",
+    "array-uniq": "^2.1.0",
+    "aws-sdk": "^2.299.0",
+    "body-parser": "^1.18.2",
+    "child_process": "^1.0.2",
+    "china-time": "^0.12.3",
+    "core-util-is": "^1.0.2",
+    "cors": "^2.8.4",
+    "dotenv": "^5.0.1",
+    "express": "^4.16.2",
+    "express-session": "^1.15.6",
+    "express-validation": "^1.0.2",
+    "extend": "^3.0.2",
+    "faker": "^4.1.0",
+    "formidable": "^1.2.1",
+    "isarray": "^2.0.4",
+    "joi": "^13.1.2",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.11",
+    "lodash._reevaluate": "^3.0.0",
+    "mail": "^0.2.3",
+    "mockjs": "^1.0.1-beta3",
+    "mongoose": "^4.10.6",
+    "nodemailer": "^6.1.1",
+    "resolve": "^1.10.1",
+    "scp2": "^0.5.0",
+    "semver": "^6.0.0",
+    "ssh2": "^0.8.5"
+  },
+  "devDependencies": {
+    "apidoc-markdown2": "^0.3.6",
+    "gulp": "^3.9.1",
+    "gulp-util": "3.0.8",
+    "gulp-api-doc": "^2.2.0",
+    "gulp-apidoc-swagger": "^0.2.2",
+    "gulp-clean": "^0.4.0",
+    "gulp-file-cache": "0.0.1",
+    "gulp-nodemon": "^2.2.1",
+    "gulp-shell": "^0.6.5",
+    "nodemon": "^1.15.0"
+  }
+}

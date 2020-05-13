@@ -1,0 +1,7 @@
+const ERROR_TYPES = {
+    "DEFAULT": "SERVER_ERROR",
+    "EMAIL_EXISTS": "EMAIL_EXISTS_ERROR",
+    "AUTH_ERROR": "AUTH_ERROR",
+};
+
+module.exports = ERROR_TYPES;
