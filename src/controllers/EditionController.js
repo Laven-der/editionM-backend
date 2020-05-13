@@ -121,7 +121,7 @@ module.exports.setServiceEdition = (req, res, then) => {
 exports.uploadPagefile = function (req, res) {
     var form = new formidable.IncomingForm();
     // 参数：server 远程电脑凭证；localPath 本地路径；remotePath 远程路径；then 回调函数fileName文件对象
-    let serviceName = req.body.serviceName || 'MUZUO_STAGE';
+    let serviceName = req.body.serviceName || 'TEST';
     server = CONFIG[serviceName].server,
         pageName = CONFIG[serviceName].pageName,
         dirName = req.body.dirName,
@@ -239,7 +239,7 @@ exports.downloadDir = function (req, res) {
 exports.getEditionPage = function (req, res, next) {
     var pagePath = path.resolve(__dirname, "../../web");
     const pageMame = req.query.pageMame || 'muzuo-platform-fe',//远程项目名称；
-        serviceName = req.query.serviceName || 'MUZUO_STAGE';//项目服务器名称，
+        serviceName = req.query.serviceName || 'TEST';//项目服务器名称，
     const CONFIG_OBJ = CONFIG[serviceName],
         branch = req.query.branch || 'master';  //项目发版分支
     console.log(CONFIG_OBJ)

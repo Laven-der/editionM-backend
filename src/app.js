@@ -87,7 +87,7 @@ app.use(function (req, res, next) {
 
 createRoutes(app)
 function listen() {
-    const port = Number(process.env.PORT || 6060);
+    const port = Number(process.env.PORT || 606);
     app.listen(port);
     console.log(`app started on port ${port}`);
 }
