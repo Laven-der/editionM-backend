@@ -2,20 +2,20 @@ const crypto = require("crypto");
 const service = require("../services/UserService");
 const model = require("../models/User");
 const fs = require("fs");
-const formidable = require("formidable")
+const formidable = require("formidable");
 const path = require("path");
-const nodemailer = require('nodemailer');
+const nodemailer = require("nodemailer");
 // 引入jwt token工具
-const TokenUtil = require('../utils/token');
+const TokenUtil = require("../utils/token");
 //引入htmldom结构
-const htmlDom = require('./api/html')
+const htmlDom = require("./api/html");
 const mailTransport = nodemailer.createTransport({
   host: "smtp.qq.com",
   secureConnection: true, // 使用SSL方式（安全方式，防止被窃取信息）
   auth: {
-    user: '527369072@qq.com',
-    pass: 'xliotthnmhixbhbb'
-  },
+    user: "test@qq.com",
+    pass: "xliotthnmhixbhbb"
+  }
 });
 /**
  * @apiDefine CODE_500
@@ -54,7 +54,7 @@ module.exports.doLogin = (req, res, next) => {
   const username = req.body.username;
   var password = req.body.password;
   //加密
-  password = setcodeKey(password)
+  password = setcodeKey(password);
   service
     .doLogin(username, password, res)
     .then(data => {
@@ -64,20 +64,20 @@ module.exports.doLogin = (req, res, next) => {
         let _data = {
           username,
           password
-        }
+        };
         // 将用户id传入并生成token
         let SetToken = new TokenUtil(_data);
         let token = SetToken.generateToken();
         // 将 token 返回给客户端
         res.status(200).json({
-          'code': 1,
+          code: 1,
           data,
           token: token
         });
       } else {
         res.status(200).json({
-          'msg': '账户或密码错误',
-          'code': -1,
+          msg: "账户或密码错误",
+          code: -1,
           data
         });
       }
@@ -145,14 +145,11 @@ function setcodeKey(key) {
  * @apiUse CODE_500
  */
 module.exports.getUserinfo = (req, res, next) => {
-  const {
-    username,
-    password
-  } = req.tokenData;
+  const { username, password } = req.tokenData;
   service
     .getUserinfo(username, password)
     .then(data => {
-      const info = {
+      const info = ({
         sex,
         name,
         moble,
@@ -163,7 +160,7 @@ module.exports.getUserinfo = (req, res, next) => {
         interest,
         roles,
         age
-      } = data[0]
+      } = data[0]);
       res.status(200).json({
         code: 1,
         data: info
@@ -172,7 +169,7 @@ module.exports.getUserinfo = (req, res, next) => {
     .catch(e => {
       next(e);
     });
-}
+};
 /**
 * @api {post} /api/user/setUserinfo 修改用户信息
 * @apiDescription 修改用户信息
@@ -218,7 +215,7 @@ module.exports.getUserinfo = (req, res, next) => {
  * @apiGroup Users
  * @apiVersion 0.0.1
  * @apiDescription 用于注册用户
- * @apiParam {String} account 用户账户名 
+ * @apiParam {String} account 用户账户名
  * @apiParam {String} password 密码
  * @apiParam {String} mobile 手机号
  * @apiParam {int} vip = 0  是否注册Vip身份 0 普通用户 1 Vip用户
@@ -233,7 +230,7 @@ module.exports.getUserinfo = (req, res, next) => {
 
 module.exports.setUserinfo = (req, res, next) => {
   //识别用户的请求
-  const fields = req.body
+  const fields = req.body;
   const username = fields.username;
   const data = {
     sex: fields.sex,
@@ -245,15 +242,13 @@ module.exports.setUserinfo = (req, res, next) => {
     avatar: fields.avatar,
     interest: fields.interest,
     age: fields.age
-  }
-  service
-    .userinfoUpdate(username, data)
-    .then(result => {
-      res.json({
-        "code": 1,
-        result
-      });
-    })
+  };
+  service.userinfoUpdate(username, data).then(result => {
+    res.json({
+      code: 1,
+      result
+    });
+  });
 };
 //得到头像
 //读取数据库
@@ -286,24 +281,22 @@ module.exports.register = (req, res, next) => {
     avatar: fields.avatar,
     interest: fields.interest,
     age: fields.age
-  }
+  };
   service.checkEmail(username).then(count => {
     if (count) {
       res.status(200).json({
-        "code": -1,
-        "msg": "该邮箱已经被注册！"
+        code: -1,
+        msg: "该邮箱已经被注册！"
       });
     } else {
-      service
-        .userinfoRegister(userObj)
-        .then(result => {
-          res.status(200).json({
-            "code": 1,
-            result
-          });
-        })
+      service.userinfoRegister(userObj).then(result => {
+        res.status(200).json({
+          code: 1,
+          result
+        });
+      });
     }
-  })
+  });
 };
 /**
  * 获取对应的数据集
@@ -322,12 +315,12 @@ module.exports.checkEmail = (req, res, next) => {
     .then(count => {
       if (count) {
         res.status(200).json({
-          "code": -1,
-          "msg": "该邮箱已经被注册！"
+          code: -1,
+          msg: "该邮箱已经被注册！"
         });
       } else {
         res.status(200).json({
-          "code": 1
+          code: 1
         });
       }
     })
@@ -346,96 +339,110 @@ exports.addwpan = function (req, res) {
     });
     return;
   }
-  model.find({
-    email: email
-  }, function (err, count) {
-    var newdocs = count[0];
-    if (!newdocs.carfiles) {
-      return;
-    }
-    var arr = newdocs.carfiles;
-    form.parse(req, function (err, fields) {
-      var form2 = JSON.parse(fields.form2);
-      //写入数据库
-      var Arr = arr.concat(form2);
-      newdocs.carfiles = Arr;
-      newdocs.save(function (err, data) {
-        if (err) {
-          res.json({
-            result: 0
-          });
-        } else {
-          res.json({
-            result: 1
-          });
-        }
-
+  model.find(
+    {
+      email: email
+    },
+    function (err, count) {
+      var newdocs = count[0];
+      if (!newdocs.carfiles) {
+        return;
+      }
+      var arr = newdocs.carfiles;
+      form.parse(req, function (err, fields) {
+        var form2 = JSON.parse(fields.form2);
+        //写入数据库
+        var Arr = arr.concat(form2);
+        newdocs.carfiles = Arr;
+        newdocs.save(function (err, data) {
+          if (err) {
+            res.json({
+              result: 0
+            });
+          } else {
+            res.json({
+              result: 1
+            });
+          }
+        });
       });
-    });
-  });
+    }
+  );
 }; //展示网盘
 exports.showwpan = function (req, res) {
   var email = req.session.email;
   //读取数据库
   //到时候我们用session来区分谁是谁，但是现在只要一个用户。
-  model.find({
-    email: email
-  }, function (err, docs) {
-    //头像
-    //直接返回这个头像本身，而不是地址。
-    res.json({
-      result: docs[0]
-    });
-  });
+  model.find(
+    {
+      email: email
+    },
+    function (err, docs) {
+      //头像
+      //直接返回这个头像本身，而不是地址。
+      res.json({
+        result: docs[0]
+      });
+    }
+  );
 };
 exports.changeWpan = function (req, res) {
   var email = req.session.email;
   var form = new formidable.IncomingForm();
   form.parse(req, function (err, fields) {
     var real = fields.real;
-    model.update({
-      email: email
-    }, {
-      $pull: {
-        carfiles: {
-          real: real
+    model
+      .update(
+        {
+          email: email
+        },
+        {
+          $pull: {
+            carfiles: {
+              real: real
+            }
+          }
         }
-      }
-    }).exec();
+      )
+      .exec();
   });
 };
 
 exports.sendEmail = function (req, res, next) {
   var name = "小明",
-    model = "15522022193",
+    model = "1552332342342",
     home = true,
-    money = 10000;;
+    money = 10000;
   const data = {
-    desc: '最真诚的祝福与快乐',
-    srcArr: [{
-      src: 'https://www.shqspay.com/images/xieyi.jpg',
-      name: "名称",
-      desc: ""
-    }, {
-      src: 'https://www.shqspay.com/images/xieyi.jpg',
-      name: "名称",
-      desc: ""
-    }, {
-      src: 'https://www.shqspay.com/images/xieyi.jpg',
-      name: "名称",
-      desc: ""
-    }]
-  }
+    desc: "最真诚的祝福与快乐",
+    srcArr: [
+      {
+        src: "https://www.shqspay.com/images/xieyi.jpg",
+        name: "名称",
+        desc: ""
+      },
+      {
+        src: "https://www.shqspay.com/images/xieyi.jpg",
+        name: "名称",
+        desc: ""
+      },
+      {
+        src: "https://www.shqspay.com/images/xieyi.jpg",
+        name: "名称",
+        desc: ""
+      }
+    ]
+  };
   // res.json({ ok: true, dom: htmlDom.SetHtmlDom(data) });
   var options = {
-    from: '节日祝福' + name + '|-<527369072@qq.com>',
-    to: '527369072@qq.com',
+    from: "节日祝福" + name + "|-<test@qq.com>",
+    to: "test@qq.com",
     subject: `来自${name}的节日祝福`,
     html: htmlDom.SetHtmlDom(data)
   };
   mailTransport.sendMail(options, function (err, msg) {
     if (err) {
-      res.render('index', {
+      res.render("index", {
         title: err
       });
     } else {
@@ -444,7 +451,7 @@ exports.sendEmail = function (req, res, next) {
       });
     }
   });
-}
+};
 exports.upload = function (req, res, next) {
   var form = new formidable.IncomingForm();
   //上传文件夹
@@ -453,9 +460,9 @@ exports.upload = function (req, res, next) {
   form.keepExtensions = true;
   form.parse(req, function (err, fields, files) {
     res.json({
-      "result": 1,
-      "base": path.parse(files.viewpics.path).base
-    })
+      result: 1,
+      base: path.parse(files.viewpics.path).base
+    });
   });
   return;
   if (!req.file) {
@@ -467,9 +474,9 @@ exports.upload = function (req, res, next) {
 
   // 输出文件信息
   // 重命名文件
-  let oldPath = path.join(__dirname, '../' + req.file.path);
-  let newPath = path.join(__dirname, '../uploads/' + req.file.originalname);
-  fs.rename(oldPath, newPath, (err) => {
+  let oldPath = path.join(__dirname, "../" + req.file.path);
+  let newPath = path.join(__dirname, "../uploads/" + req.file.originalname);
+  fs.rename(oldPath, newPath, err => {
     if (err) {
       res.json({
         ok: false
@@ -480,5 +487,5 @@ exports.upload = function (req, res, next) {
         ok: true
       });
     }
-  })
-}
+  });
+};
