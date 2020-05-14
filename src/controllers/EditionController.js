@@ -211,7 +211,7 @@ exports.downloadDir = function (req, res) {
     var form = new formidable.IncomingForm();
     // 参数：server 远程电脑凭证；localPath 本地路径；remotePath 远程路径；then 回调函数
     let serviceName = req.query.serviceName || 'TEST',
-        remoteDir = `/root/muzuo-platform-uat/logs`
+        remoteDir = `/root/test-platform-uat/logs`
     const server = CONFIG[serviceName].server
     //本地上传文件夹
     localDir = path.resolve(__dirname, "../../static/download/logs");
@@ -238,7 +238,7 @@ exports.downloadDir = function (req, res) {
  */
 exports.getEditionPage = function (req, res, next) {
     var pagePath = path.resolve(__dirname, "../../web");
-    const pageMame = req.query.pageMame || 'muzuo-platform-fe',//远程项目名称；
+    const pageMame = req.query.pageMame || 'test-platform-fe',//远程项目名称；
         serviceName = req.query.serviceName || 'TEST';//项目服务器名称，
     const CONFIG_OBJ = CONFIG[serviceName],
         branch = req.query.branch || 'master';  //项目发版分支
@@ -265,8 +265,8 @@ function setENV(ENV_PATH, CONFIG_OBJ, next) {
     let ENVTEXT = `
     const ENV = {
         development: {
-            API_DOMAIN: "https://zeus-stage.meiwu365.com",
-            PASSWORD_DOMAIN: "https://sys-stage.meiwu365.com"
+            API_DOMAIN: "https://zeus-test.meiwu365.com",
+            PASSWORD_DOMAIN: "https://sys-test.meiwu365.com"
         },
         production: {
             API_DOMAIN:"${CONFIG_OBJ.API_DOMAIN}",

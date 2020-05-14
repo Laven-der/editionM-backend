@@ -52,8 +52,9 @@ app.use(function (req, res, next) {
             ...otherArgment
         })
     }
+    const noCheckUrl = ['/api/user/doLogin', '/api/user/register', '/api/user/logout']
     // 把登陆和注册请求去掉了，其他的多有请求都需要进行token校验 
-    if (req.url.indexOf('/api/user/doLogin') != 0 && req.url.indexOf('/api/user/register') != 0 && req.url.indexOf('/api/user/logout ') != 0) {
+    if (!noCheckUrl.includes(req.url)) {
         var token = req.body.token || req.query.token || req.headers['x-token'] || ""
         // 如果考验通过就next，否则就返回登陆信息不正确
         let SetToken = new TokenUtil(token);
@@ -82,6 +83,7 @@ app.use(function (req, res, next) {
         }
     } else {
         next();
+
     }
 });
 

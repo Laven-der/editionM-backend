@@ -7,8 +7,9 @@ express@4.16.2 + mongoose@4.10.6 + ssh2@0.8.5 + gulp-api-doc@2.2.0 + gulp-nodemo
 ## 简介
 
 [editionM-backend](https://github.com/Laven-der/editionM-backend) 是一个后台集成解决方案，它基于 [express](https://www.expressjs.com.cn/) 和 [ssh2](https://www.npmjs.com/package/ssh2)。它使用了基于分布式文件存储的数据库
-[mongodb](https://www.mongodb.org.cn/)，提供简易的用户管理（登录、权限验证配置等），利用本地请求触发服务器执行 sh，达到项目发版管理，如果只是想拉取或者上传服务器功能，以及触发服务器 sh 功能，本项目都能帮助到你。
+[mongodb](https://www.mongodb.org.cn/)，提供简易的用户管理（登录、权限验证配置等），利用本地请求触发服务器执行 sh，达到项目发版管理，如果只是想拉取或者上传服务器功能，以及触发服务器 sh 功能，主要是解决公司前端具有多个服务器环境，发布项目分支，便捷修改不同环境域名api代理入口，可配套前端web项目，实现界面发版功能，记录发版时间，及时回滚，取决于你编辑的sh脚本多样性😁；
 
+sh传送入口 | [sh-demo](./bin/sh-utils/start.sh)
 ## 前序准备
 
 你需要在本地安装 [node](http://nodejs.org/) 、[git](https://git-scm.com/)和[mongodb](https://www.mongodb.org.cn/)
@@ -76,5 +77,10 @@ npm run doc
 浏览器访问 http://localhost:6060
 
 api 文档浏览器访问 http://127.0.0.1:6060/docs/
+
+
+## 便捷链接服务器环境sh案例
+
+
 
 ---
