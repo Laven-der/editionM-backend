@@ -2,7 +2,7 @@
 
 express@4.16.2 + mongoose@4.10.6 + ssh2@0.8.5 + gulp-api-doc@2.2.0 + gulp-nodemon@2.2.1 + apidoc-markdown2@0.3.6
 
-简体中文 | [English](./README.md)
+简体中文 | [English](./README.en-US.md)
 
 ## 简介
 
